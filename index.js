@@ -60,9 +60,9 @@ button.addEventListener("click", async () => {
     }
   });
   await entranceContent(happy, "Happy SPBB", 1);
-  await entranceContent(bmp, "DAY 2", 2);
+  await entranceContent(bmp, "DAY 3", 2);
   document.body.style.overflow = "";
-  await entranceContent(from, "2025-07-05", 3);
+  await entranceContent(from, "2025-07-06", 3);
   if (!isPortrait && !intervalId) {
     intervalId = setInterval(updateImage, 300);
   }
@@ -190,8 +190,16 @@ secretBtn.addEventListener("click", (e) => {
 input = content.querySelector(".modal-body input");
 console.log(input);
 enterBtn = content.querySelector(".modal-footer button");
+error = document.getElementById("error");
+console.log(error);
 enterBtn.addEventListener("click", (e) => {
-  if (input.value === "violet") {
+  if (input.value === "shiro") {
     window.location.href = "pics.html";
+  } else if (input.value === "white") {
+    error.textContent = "Nope, what is white in Japanese";
+  } else {
+    error.textContent = "Wrong password";
   }
 });
+
+//error

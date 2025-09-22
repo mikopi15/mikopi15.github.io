@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="2.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link href=https://fonts.googleapis.com rel=preconnect><link
+    href=https://fonts.gstatic.com rel=preconnect crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <script defer src="1.js"></script>
+  </head>
+  <body class="my-body">
+    <div class="my-border">
+      <!-- Header -->
+      <header class="header">
+        <h1 id="category-title">Hair</h1>
+      </header>
+
+      <!-- Avatar / Character -->
+      <div class="avatar">
+        <img id="avatar" src="m/mb.png" alt="Avatar" />
+      </div>
+
+      <!-- Category Tabs -->
+      <div class="category-tabs">
+        <button class="tab-btn active" data-category="hair">Hair</button>
+        <button class="tab-btn" data-category="eyes">Eyes</button>
+      </div>
+
+      <!-- Category Options -->
+      <div class="categories">
+        <!-- Hair Choices -->
+        <div class="category-options" id="hair-options">
+          <img class="option" src="m/mh1.png" alt="Hair 1" data-type="hair" />
+          <img class="option" src="m/mh2.png" alt="Hair 2" data-type="hair" />
+          <img class="option" src="m/mh3.png" alt="Hair 3" data-type="hair" />
+        </div>
+
+        <!-- Eyes Choices -->
+        <div class="category-options hidden" id="eyes-options">
+          <img class="option" src="m/mf1.png" alt="Eyes 1" data-type="eyes" />
+          <img class="option" src="m/mf2.png" alt="Eyes 2" data-type="eyes" />
+          <img class="option" src="m/mf3.png" alt="Eyes 3" data-type="eyes" />
+        </div>
+      </div>
+
+      <!-- Done Button -->
+      <div class="done-btn">
+        <button id="done">Done</button>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const tabs = document.querySelectorAll(".tab-btn");
+        const categoryTitle = document.getElementById("category-title");
+        const hairOptions = document.getElementById("hair-options");
+        const eyesOptions = document.getElementById("eyes-options");
+        const avatar = document.getElementById("avatar");
+        const doneBtn = document.getElementById("done");
+
+        let chosenHair = "";
+        let chosenEyes = "";
+
+        // Handle tab switching
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            tabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+
+            categoryTitle.textContent = tab.textContent;
+
+            if (tab.dataset.category === "hair") {
+              hairOptions.classList.remove("hidden");
+              eyesOptions.classList.add("hidden");
+            } else if (tab.dataset.category === "eyes") {
+              eyesOptions.classList.remove("hidden");
+              hairOptions.classList.add("hidden");
+            }
+          });
+        });
+
+        // Handle option clicks (update avatar choice)
+        document.querySelectorAll(".option").forEach((opt) => {
+          opt.addEventListener("click", () => {
+            if (opt.dataset.type === "hair") {
+              chosenHair = opt.src;
+            } else if (opt.dataset.type === "eyes") {
+              chosenEyes = opt.src;
+            }
+
+            // Show the latest chosen feature (preview idea)
+            avatar.src = opt.src;
+          });
+        });
+
+        // Done button
+        doneBtn.addEventListener("click", () => {
+          alert(`You chose:\nHair: ${chosenHair}\nEyes: ${chosenEyes}`);
+        });
+      });
+    </script>
+
+    <style>
+      .hidden {
+        display: none;
+      }
+      .done-btn {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .done-btn button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </body>
+</html>

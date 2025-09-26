@@ -69,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const spans = [...allSpans, ...daySpans]; // include Day 1 too
     spans.forEach((span, i) => {
       setTimeout(() => {
-        console.log(span);
         span.className = "";
         void span.offsetWidth;
         span.classList.add("animate__animated", "animate__bounce");

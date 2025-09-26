@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="2.css" />
+    <title>Create Avatar</title>
+
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="2f.css" />
 
     <link href=https://fonts.googleapis.com rel=preconnect><link
     href=https://fonts.gstatic.com rel=preconnect crossorigin>
@@ -25,7 +26,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <script defer src="1.js"></script>
   </head>
   <body class="my-body">
     <div class="my-border">
@@ -36,7 +36,22 @@
 
       <!-- Avatar / Character -->
       <div class="avatar">
-        <img id="avatar" src="images/male.png" alt="Avatar" />
+        <img id="avatar" src="f/fb.png" alt="Avatar" />
+        <img
+          id="hair-layer"
+          class="layer"
+          src="f/mh1.png"
+          alt="Hair Layer"
+          style="top: 9px; left: -7px; width: 160px"
+        />
+        <img
+          id="eyes-layer"
+          class="layer"
+          src="f/mf1.png"
+          alt="Eyes Layer"
+          style="top: 33px; left: 31px; width: 120px"
+        />
+        <img id="clothes-layer" class="layer" src="" />
       </div>
 
       <!-- Category Tabs -->
@@ -49,47 +64,429 @@
       <div class="categories">
         <!-- Hair Choices -->
         <div class="category-options" id="hair-options">
-          <img src="images/hair1.png" alt="Hair 1" />
-          <img src="images/hair2.png" alt="Hair 2" />
-          <img src="images/hair3.png" alt="Hair 3" />
+          <img
+            class="option"
+            src="f/mh1.png"
+            alt="Hair 1"
+            data-type="hair"
+            name="h1"
+            data-style="top: 9px; left: -7px; width: 160px"
+          />
+          <img
+            class="option"
+            src="f/mh2.png"
+            alt="Hair 2"
+            data-type="hair"
+            name="h2"
+            data-style="top: 6px; left: -10px; width: 175px;"
+          />
+          <img
+            class="option"
+            src="f/mh3.png"
+            alt="Hair 3"
+            data-type="hair"
+            name="h3"
+            data-style="top: 12px; left: -9px; width: 180px;"
+          />
         </div>
 
         <!-- Eyes Choices -->
         <div class="category-options hidden" id="eyes-options">
-          <img src="images/eyes1.png" alt="Eyes 1" />
-          <img src="images/eyes2.png" alt="Eyes 2" />
-          <img src="images/eyes3.png" alt="Eyes 3" />
+          <img
+            class="option"
+            src="f/mf1.png"
+            alt="Eyes 1"
+            data-type="eyes"
+            name="e1"
+            data-style="         top: 33px; left: 31px; width: 120px"
+          />
+          <img
+            class="option"
+            src="f/mf2.png"
+            alt="Eyes 2"
+            data-type="eyes"
+            name="e2"
+            data-style="    top: 55px;
+    left: 42px;
+    width: 105px;"
+          />
+          <img
+            class="option"
+            src="f/mf3.png"
+            alt="Eyes 3"
+            data-type="eyes"
+            name="e3"
+            data-style="top: 65px;"
+          />
+        </div>
+      </div>
+
+      <div class="next-btn">
+        <button id="next">Next</button>
+      </div>
+
+      <div id="clothes-step" class="hidden">
+        <h2>What is the uniform for today?</h2>
+        <div class="category-options">
+          <img
+            src="f/m-white.png"
+            alt="Clothes 1"
+            data-correct="false"
+            name="white"
+          />
+          <img
+            src="f/blue.png"
+            alt="Clothes 2"
+            data-correct="true"
+            name="blue"
+            data-style="width: 127px;
+    top: 128px;
+    left: 16px;"
+          />
+          <img
+            src="f/violet.png"
+            alt="Clothes 3"
+            data-correct="false"
+            name="violet"
+            data-style="    top: 123px;
+    left: 16px;
+    width: 126px;"
+          />
+          <img
+            src="f/lilac.png"
+            alt="Clothes 3"
+            data-correct="false"
+            name="lilac"
+          />
+        </div>
+
+        <!-- Done button only for clothes -->
+        <div class="done-btn">
+          <button id="done">Done</button>
         </div>
       </div>
     </div>
-  </body>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const tabs = document.querySelectorAll(".tab-btn");
-      const categoryTitle = document.getElementById("category-title");
-      const hairOptions = document.getElementById("hair-options");
-      const eyesOptions = document.getElementById("eyes-options");
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+      <!-- Toast container fixed at top center -->
+      <div
+        class="toast-container position-fixed top-0 start-50 translate-middle-x p-3"
+      >
+        <!-- Toast 1 -->
+        <div
+          class="toast align-items-center text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast1"
+        >
+          <div class="d-flex">
+            <div class="toast-body w-100 text-center">Wrong</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
 
-      tabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          // Remove active from all tabs
-          tabs.forEach((t) => t.classList.remove("active"));
-          tab.classList.add("active");
+        <!-- Toast 2 -->
+        <div
+          class="toast align-items-center text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast2"
+        >
+          <div class="d-flex">
+            <div class="toast-body w-100 text-center">Ano ba, mali nga</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
 
-          // Update header text
-          categoryTitle.textContent = tab.textContent;
+        <!-- Toast 3 -->
+        <div
+          class="toast align-items-center text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast3"
+        >
+          <div class="d-flex">
+            <div class="toast-body w-100 text-center">Tama na</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <!-- Toast 4 -->
+        <div
+          class="toast align-items-center text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast4"
+        >
+          <div class="d-flex">
+            <div class="toast-body w-100 text-center">Magbasa ng gc po</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <!-- Toast 5 -->
+        <div
+          class="toast align-items-center text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast5"
+        >
+          <div class="d-flex">
+            <div class="toast-body w-100 text-center">
+              Stop, blue ang uniform today
+            </div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <!-- Toast 6 -->
+        <div
+          class="toast align-items-center text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast6"
+        >
+          <div class="d-flex">
+            <div class="toast-body w-100 text-center">
+              Stop na, sinabi ko na ang uniform
+            </div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <!-- Toast 7 -->
+        <div
+          class="toast align-items-center text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast7"
+        >
+          <div class="d-flex">
+            <div class="toast-body w-100 text-center">Bahala ka diyan</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-          // Show correct options
-          if (tab.dataset.category === "hair") {
-            hairOptions.classList.remove("hidden");
-            eyesOptions.classList.add("hidden");
-          } else if (tab.dataset.category === "eyes") {
-            eyesOptions.classList.remove("hidden");
-            hairOptions.classList.add("hidden");
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const tabs = document.querySelectorAll(".tab-btn");
+        const categoryTitle = document.getElementById("category-title");
+        const hairOptions = document.getElementById("hair-options");
+        const eyesOptions = document.getElementById("eyes-options");
+        const avatar = document.getElementById("avatar");
+        const hairLayer = document.getElementById("hair-layer");
+        const eyesLayer = document.getElementById("eyes-layer");
+        const nextBtn = document.getElementById("next");
+        const doneBtn = document.getElementById("done");
+
+        let chosenHair = "f/mh1.png";
+        let chosenEyes = "f/mf1.png";
+
+        localStorage.setItem(
+          "chosenHairStyle",
+          "top: 9px; left: -7px; width: 160px"
+        );
+        localStorage.setItem(
+          "chosenEyesStyle",
+          "top: 33px; left: 31px; width: 120px"
+        );
+
+        // Handle tab switching
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", () => {
+            tabs.forEach((t) => t.classList.remove("active"));
+            tab.classList.add("active");
+
+            categoryTitle.textContent = tab.textContent;
+
+            if (tab.dataset.category === "hair") {
+              hairOptions.classList.remove("hidden");
+              eyesOptions.classList.add("hidden");
+            } else if (tab.dataset.category === "eyes") {
+              eyesOptions.classList.remove("hidden");
+              hairOptions.classList.add("hidden");
+            }
+          });
+        });
+
+        // Handle option clicks (update avatar choice)
+        document.querySelectorAll(".option").forEach((opt) => {
+          opt.addEventListener("click", () => {
+            if (opt.dataset.type === "hair") {
+              chosenHair = opt.src;
+              hairLayer.src = chosenHair;
+              // Save style
+              const styleText = opt.getAttribute("data-style") || "";
+              hairLayer.style.cssText = styleText;
+              localStorage.setItem("chosenHairStyle", styleText);
+            } else if (opt.dataset.type === "eyes") {
+              chosenEyes = opt.src;
+              eyesLayer.src = chosenEyes;
+              // Save style
+              const styleText = opt.getAttribute("data-style") || "";
+              eyesLayer.style.cssText = styleText;
+              localStorage.setItem("chosenEyesStyle", styleText);
+            }
+          });
+        });
+        // Done button
+        const clothesStep = document.getElementById("clothes-step");
+        const categoryTabs = document.querySelector(".category-tabs");
+        const categories = document.querySelector(".categories");
+        const doneContainer = document.querySelector(".done-btn");
+        // Step 1 → Go from Hair/Eyes to Clothes
+        nextBtn.addEventListener("click", () => {
+          categoryTabs.classList.add("hidden");
+          categories.classList.add("hidden");
+          nextBtn.parentElement.classList.add("hidden"); // hide Next button
+          categoryTitle.textContent = ""; // clear header
+          clothesStep.classList.remove("hidden"); // show clothes step
+        });
+
+        // Step 2 → Finish Clothes Selection
+        const toastIds = [
+          "toast1",
+          "toast2",
+          "toast3",
+          "toast4",
+          "toast5",
+          "toast6",
+          "toast7",
+        ];
+        let current = 0;
+
+        doneBtn.addEventListener("click", () => {
+          if (clothesLayer.name == "blue") {
+            // Save selections to localStorage
+            localStorage.setItem("chosenHair", chosenHair);
+            localStorage.setItem("chosenEyes", chosenEyes);
+            localStorage.setItem("chosenBase", "f/fb.png");
+            localStorage.setItem("chosenClothes", clothesLayer.src);
+            localStorage.setItem(
+              "clothesStyle",
+              "width: 127px;top: 128px;left: 16px;"
+            );
+
+            // Redirect to next page
+            window.location.href = "index.html";
+          } else {
+            current++;
+            if (current == 2) {
+              const toastEl = document.getElementById(toastIds[1]);
+              const toast = new bootstrap.Toast(toastEl);
+              toast.show();
+            } else if (current == 6) {
+              const toastEl = document.getElementById(toastIds[2]);
+              const toast = new bootstrap.Toast(toastEl);
+              toast.show();
+            } else if (current == 9) {
+              const toastEl = document.getElementById(toastIds[3]);
+              const toast = new bootstrap.Toast(toastEl);
+              toast.show();
+            } else if (current == 12) {
+              const toastEl = document.getElementById(toastIds[4]);
+              const toast = new bootstrap.Toast(toastEl);
+              toast.show();
+            } else if (current == 15) {
+              const toastEl = document.getElementById(toastIds[5]);
+              const toast = new bootstrap.Toast(toastEl);
+              toast.show();
+            } else if (current == 20) {
+              const toastEl = document.getElementById(toastIds[5]);
+              const toast = new bootstrap.Toast(toastEl);
+              toast.show();
+            } else if (current == 50) {
+              alert("Wow naabot mo pa dito, Happy SPBB po xd");
+            } else if (current == 60) {
+              alert("Last na ito, wala na pramis, piliin mo na blue");
+            } else if (current > 30) {
+              const toastEl = document.getElementById(toastIds[6]);
+              const toast = new bootstrap.Toast(toastEl);
+              toast.show();
+            } else {
+              const toastEl = document.getElementById(toastIds[0]);
+              const toast = new bootstrap.Toast(toastEl);
+              toast.show();
+            }
           }
         });
+
+        // uniform
+
+        const clothesLayer = document.getElementById("clothes-layer");
+        document.querySelectorAll("#clothes-step img").forEach((opt) => {
+          opt.addEventListener("click", () => {
+            if (opt.getAttribute("name") != "white") {
+              clothesLayer.name = opt.getAttribute("name");
+              clothesLayer.src = opt.src;
+              switch (opt.getAttribute("name")) {
+                case "blue":
+                  clothesLayer.style.width = "127px";
+                  clothesLayer.style.top = "128px";
+                  clothesLayer.style.left = "16px";
+                  break;
+                case "violet":
+                  clothesLayer.style.top = "123px";
+                  clothesLayer.style.left = "16px";
+                  clothesLayer.style.width = "126px";
+                  break;
+                case "lilac":
+                  clothesLayer.style.top = "131px";
+                  clothesLayer.style.left = "20px";
+                  clothesLayer.style.width = "122px";
+                  break;
+              }
+            } else {
+              clothesLayer.src = "";
+            }
+          });
+        });
       });
-    });
-  </script>
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

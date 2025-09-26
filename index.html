@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Happy SPBB</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="2.css" />
 
@@ -26,12 +26,21 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
     <script defer src="index.js"></script>
+    <style>
+      .avatar {
+        opacity: 0; /* hide until fully loaded */
+        transition: opacity 0.3s ease;
+      }
+      .avatar.loaded {
+        opacity: 1;
+      }
+    </style>
   </head>
   <body class="my-body">
     <div class="content">
       <h1 class="animate-text">Happy SPBB</h1>
       <h1 class="animate-text"></h1>
-      <h1 class="animate-text-last">Day 3</h1>
+      <h1 class="animate-text-last">Day 1</h1>
       <img class="star" src="images/star.png" alt="star" style="opacity: 0" />
       <!-- <div class="extra">
         <div
@@ -52,7 +61,91 @@
           Show live alert
         </button>
       </div> -->
+      <!-- Avatar / Character -->
+      <div class="avatar avatar-index">
+        <img id="avatar" src="" alt="Avatar" />
+        <img id="hair-layer" class="layer" src="m/mh1.png" alt="Hair Layer" />
+        <img id="eyes-layer" class="layer" src="m/mf1.png" alt="Eyes Layer" />
+        <img id="clothes-layer" class="layer" src="" />
+      </div>
+      <button id="reset">Reset Avatar</button>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // Get saved selections
+        const hair = localStorage.getItem("chosenHair");
+        const eyes = localStorage.getItem("chosenEyes");
+        const clothes = localStorage.getItem("chosenClothes");
+        const base = localStorage.getItem("chosenBase");
+
+        if (localStorage.getItem("chosenHairStyle")) {
+          let hairStyle = localStorage.getItem("chosenHairStyle");
+          if (hairStyle)
+            document.getElementById("hair-layer").style.cssText = hairStyle;
+        }
+        if (localStorage.getItem("chosenEyesStyle")) {
+          let eyesStyle = localStorage.getItem("chosenEyesStyle");
+          if (eyesStyle)
+            document.getElementById("eyes-layer").style.cssText = eyesStyle;
+        }
+        if (localStorage.getItem("clothesStyle")) {
+          let clothesStyle = localStorage.getItem("clothesStyle");
+          if (clothesStyle)
+            document.getElementById("clothes-layer").style.cssText =
+              clothesStyle;
+        }
+
+        // If something is missing → send them back
+        if (!hair || !eyes || !clothes) {
+          window.location.href = "1.html"; // your character creation page
+          return;
+        }
+
+        // Apply them
+        const hairLayer = document.getElementById("hair-layer");
+        const eyesLayer = document.getElementById("eyes-layer");
+        const clothesLayer = document.getElementById("clothes-layer");
+        const avatar = document.querySelector(".avatar");
+        const baseLayer = document.getElementById("avatar");
+
+        // Preload images first
+        const imagesToLoad = [hair, eyes, clothes, base];
+        let loadedCount = 0;
+
+        imagesToLoad.forEach((src, index) => {
+          if (!src) {
+            loadedCount++;
+            return;
+          }
+          const img = new Image();
+          img.src = src;
+          img.onload = () => {
+            loadedCount++;
+            if (loadedCount === imagesToLoad.length) {
+              // Apply after all loaded
+              if (hair) hairLayer.src = hair;
+              if (eyes) eyesLayer.src = eyes;
+              if (clothes) clothesLayer.src = clothes;
+              if (base) baseLayer.src = base;
+
+              // Fade in avatar
+              avatar.classList.add("loaded");
+            }
+          };
+        });
+
+        document.getElementById("reset").addEventListener("click", () => {
+          localStorage.clear();
+          window.location.href = "index.html"; // go back to creator
+        });
+
+        console.log(avatar);
+        avatar.addEventListener("click", () => {
+          window.location.href = "message.html";
+        });
+      });
+    </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"

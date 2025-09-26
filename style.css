@@ -11,11 +11,10 @@
 .my-body {
   margin: 0;
   padding: 0;
-  min-height: 100vh;
-  background-image: url(images/bg-web2.png);
-  background-position: center bottom;
+  background-image: url(images/bg-web.png);
+  background-position: center top;
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: cover;
   background-color: #0091ff;
   display: flex;
   justify-content: center;
@@ -23,6 +22,7 @@
 }
 .content {
   width: 100%;
+  margin-top: 50px;
 }
 
 .my-body .content h1 {
@@ -56,7 +56,7 @@
   position: absolute;
   top: -40px;
   height: 200px;
-  min-width: 500px;
+  min-width: 400px;
   z-index: -1;
 }
 .animate-text span {
@@ -80,11 +80,16 @@
 .item {
   margin: 50px;
 }
+.content .avatar-index {
+  margin-right: 25px;
+}
 
-/* @media (max-width: 700px) {
+@media (max-width: 700px) {
   .my-body {
+    min-height: 100vh;
+    background-size: 100% auto;
     background-image: url(images/bg-mobile.png);
     background-size: cover;
     background-position: center bottom;
   }
-} */
+}

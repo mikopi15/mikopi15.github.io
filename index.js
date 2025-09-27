@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- animation functions ---
   async function animateBackInDown(spans, delay = 50) {
     for (let i = 0; i < spans.length; i++) {
-      spans[i].className = "animate__animated animate__lightSpeedInLeft";
+      spans[i].className = "animate__animated animate__backInDown";
       spans[i].style.opacity = 1;
       await wait(delay);
     }
@@ -35,8 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function animateDay(element) {
     element.style.opacity = 1;
-    element.className =
-      "animate__animated animate__lightSpeedInRight animate__fast";
+    element.className = "animate__animated animate__backInDown animate__fast";
   }
 
   async function animateRubberBand(spans, delay = 0) {
@@ -71,12 +70,12 @@ document.addEventListener("DOMContentLoaded", () => {
       setTimeout(() => {
         span.className = "";
         void span.offsetWidth;
-        span.classList.add("animate__animated", "animate__bounce");
+        span.classList.add("animate__animated", "animate__rubberBand");
         if (i == spans.length - 1) {
           dayTag = document.querySelector(".content h1:nth-child(3)");
           dayTag.className = "";
           void dayTag.offsetWidth;
-          dayTag.classList.add("animate__animated", "animate__jello");
+          dayTag.classList.add("animate__animated", "animate__bounce");
         }
       }, i * 50);
     });

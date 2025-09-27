@@ -193,7 +193,7 @@
         >
           <div class="d-flex">
             <div class="toast-body w-100 text-center">
-              Stop, blue ang uniform today
+              Stop, lilac ang uniform today
             </div>
             <button
               type="button"
@@ -233,6 +233,26 @@
         >
           <div class="d-flex">
             <div class="toast-body w-100 text-center">Bahala ka diyan</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        <!-- Toast 8 -->
+        <div
+          class="toast align-items-center text-bg-danger border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+          id="toast8"
+        >
+          <div class="d-flex">
+            <div class="toast-body w-100 text-center">
+              Tapos na po Day 1, Day 2 na po
+            </div>
             <button
               type="button"
               class="btn-close btn-close-white me-2 m-auto"
@@ -316,12 +336,16 @@
         let current = 0;
 
         doneBtn.addEventListener("click", () => {
-          if (clothesLayer.name == "blue") {
+          if (clothesLayer.name == "lilac") {
             // Save selections to localStorage
             localStorage.setItem("chosenHair", chosenHair);
             localStorage.setItem("chosenEyes", chosenEyes);
             localStorage.setItem("chosenBase", "m/mb.png");
             localStorage.setItem("chosenClothes", clothesLayer.src);
+            localStorage.setItem(
+              "clothesStyle",
+              "top: 132px;left: 22px;width: 122px;"
+            );
 
             // Redirect to next page
             window.location.href = "index.html";
@@ -352,17 +376,25 @@
               const toast = new bootstrap.Toast(toastEl);
               toast.show();
             } else if (current == 50) {
-              alert("Wow naabot mo pa dito, Happy SPBB po xd");
+              alert("Wow naabot mo pa dito, Happy SPBB Day 2 po xd");
             } else if (current == 60) {
-              alert("Last na ito, wala na pramis, piliin mo na blue");
+              alert("Last na ito, wala na pramis, piliin mo na lilac");
             } else if (current > 30) {
               const toastEl = document.getElementById(toastIds[6]);
               const toast = new bootstrap.Toast(toastEl);
               toast.show();
             } else {
-              const toastEl = document.getElementById(toastIds[0]);
-              const toast = new bootstrap.Toast(toastEl);
-              toast.show();
+              console.log(clothesLayer.name);
+              if (clothesLayer.name == "blue") {
+                console.log(1);
+                const toastEl = document.getElementById(toastIds[7]);
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show();
+              } else {
+                const toastEl = document.getElementById(toastIds[0]);
+                const toast = new bootstrap.Toast(toastEl);
+                toast.show();
+              }
             }
           }
         });

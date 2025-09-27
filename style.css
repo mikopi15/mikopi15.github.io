@@ -84,6 +84,29 @@
   margin-right: 25px;
 }
 
+.day1 {
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    #fce043,
+    #fb7ba2
+  ); /* yellow → pink gradient */
+  border: 4px solid #333; /* thick black border (retro look) */
+  border-radius: 0; /* no rounded edges (pixel style) */
+  padding: 12px 28px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000; /* pixel-style shadow */
+  text-transform: uppercase;
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+}
+
+.day1:hover {
+  transform: translate(-2px, -2px); /* slight jump */
+  box-shadow: 6px 6px 0 #000; /* bigger shadow when hovered */
+}
 @media (max-width: 700px) {
   .my-body {
     min-height: 100vh;

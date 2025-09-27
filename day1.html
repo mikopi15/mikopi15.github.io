@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Happy SPBB</title>
+    <title>Day 1 SPBB</title>
     <link rel="stylesheet" href="2.css" />
     <link rel="stylesheet" href="style.css" />
 
@@ -40,13 +40,14 @@
       /* Frame */
       .message-box {
         max-width: 500px;
-        padding: 30px;
-        background: #fff;
+        padding: 5px;
+
         border-radius: 20px;
-        border: 5px solid #66a6ff;
+
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         text-align: center;
         position: relative;
+        margin-bottom: 20px;
       }
 
       /* Glow decoration */
@@ -73,26 +74,48 @@
   </head>
 
   <body class="my-body">
-    <div class="content">
-      <div class="message-box animate__animated animate__zoomIn">
+    <div class="content text-center">
+      <div class="message-box">
         <div class="message-text">
           💛💙
-          <span class="text-primary fw-bold fs-3">Happy SPBB </span> 💛💙<br />
-          Patawad po sa mga pagkukulang and if I ever hurt or offended anyone<br />
-          Looking forward for spending more time together with everyone
-          <br /><br />
-          -Richi
+          <span class="text-primary fw-bold fs-3">Day 1 </span> 💛💙<br />
         </div>
       </div>
-      <button id="reset" style="margin-top: 20px">Back</button>
       <div
-        style="
-          border: 1px solid rgba(0, 0, 0, 0.201);
-          width: 80%;
-          margin-top: 20px;
-        "
-      ></div>
-      <button id="" class="day1" style="margin-top: 20px">Day 1</button>
+        id="carouselExample"
+        class="carousel slide mx-auto"
+        data-bs-ride="carousel"
+        style="max-width: 500px"
+      >
+        <div class="carousel-inner rounded shadow">
+          <div class="carousel-item active">
+            <img src="day1/1.jpg" class="d-block w-100" alt="Slide 1" />
+          </div>
+
+          <div class="carousel-item">
+            <img src="day1/2.jpg" class="d-block w-100" alt="Slide 3" />
+          </div>
+        </div>
+        <!-- Controls -->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExample"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+
+      <button id="reset" style="margin-top: 20px">Back</button>
     </div>
 
     <script>
@@ -108,10 +131,7 @@
         }
 
         document.getElementById("reset").addEventListener("click", () => {
-          window.location.href = "index.html"; // go back to creator
-        });
-        document.querySelector(".day1").addEventListener("click", () => {
-          window.location.href = "day1.html"; // go back to creator
+          window.location.href = "message.html"; // go back to creator
         });
       });
     </script>
